@@ -1,0 +1,47 @@
+<ion-view view-title="Http Request">
+    <ion-content>
+        <div class="list list-inset">
+            <label class="item item-input">
+                <input type="text" placeholder="Address" ng-model="requestCtrl.address">
+            </label>
+            <label class="item item-input item-select">
+                <div class="input-label">
+                    Request
+                </div>
+                <select ng-model="requestCtrl.request">
+                    <option ng-repeat="request in requestCtrl.requests track by $index" ng-selected="requestCtrl.request == request">{{request}}</option>
+                </select>
+            </label>
+        </div>
+        <ion-radio ng-show="requestCtrl.request != 'GET'" ng-repeat="item in requestCtrl.radiolist" ng-value="item.value" ng-model="requestCtrl.radioSelected" style="width: 50%; left: 15px; display: inline-block;">{{item.text}}</ion-radio>
+        <textarea ng-show="requestCtrl.request != 'GET' && requestCtrl.radioSelected == 'raw'" ng-model="requestCtrl.texarea" style="width:90%; height:150px; left:15px; border: solid 1px grey; margin-bottom:10px; position: relative;">
+
+        </textarea>
+        <div class="list" ng-show="requestCtrl.request != 'GET' && requestCtrl.radioSelected == 'encode'">
+            <div ng-repeat="(i, key) in requestCtrl.keys track by $index">
+                <label class="item item-input" style="left: 15px; width: 45%; display: inline-block">
+                    <input type="text" placeholder="Key" ng-model="requestCtrl.keys[i]">
+                </label>
+                <label class="item item-input" style="left: 15px; width: 45%; display: inline-block">
+                    <input type="text" placeholder="Value" ng-model="requestCtrl.values[i]">
+                </label>
+                <a class="button button-icon icon ion-android-cancel" ng-click="requestCtrl.deleteParam()" style="padding-left: 15px;"></a>
+            </div>
+            <div>
+                <label class="item item-input" ng-click="requestCtrl.addNewParam()" style="left: 15px; width: 45%; display: inline-block">
+                    <input type="text" placeholder="Key">
+                </label>
+                <label class="item item-input" ng-click="requestCtrl.addNewParam()" style="left: 15px; width: 45%; display: inline-block">
+                    <input type="text" placeholder="Value">
+                </label>
+            </div>
+
+        </div>
+        <button class="button button-positive" ng-click="requestCtrl.sendRequest()" style="left: 15px;">
+            Send
+        </button>
+        <hr>
+        <pre ng-show="requestCtrl.response"><span style="background: grey; color: #ffffff; border-radius: 1em;">STATUS</span><span> {{requestCtrl.status.code}} {{requestCtrl.status.text}}</span><br>{{requestCtrl.response | json:4}}
+        </pre>
+    </ion-content>
+</ion-view>

@@ -1,0 +1,13 @@
+<ion-view view-title="History">
+    <ion-content>
+        <ion-list>
+            <ion-item ng-repeat="req in historyCtrl.cache">
+                <span ng-if="req.method == 'GET'" style="color: #000000; background: #3FA751; border-radius: 5px">{{req.method}}</span>
+                <span ng-if="req.method == 'PUT'" style="color: #000000; background: #256BFF; border-radius: 5px">{{req.method}}</span>
+                <span ng-if="req.method == 'POST'" style="color: #000000; background: #D69A00; border-radius: 5px">{{req.method}}</span>
+                <span ng-if="req.method == 'DELETE'" style="color: #000000; background: #D23105; border-radius: 5px">{{req.method}}</span>
+                {{req.url}} {{req.status}}
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>
